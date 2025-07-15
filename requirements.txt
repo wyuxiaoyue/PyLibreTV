@@ -1,0 +1,4 @@
+aiocache==0.12.3
+aiohttp==3.12.13
+aiohttp-jinja2==1.6
+Jinja2==3.0.3

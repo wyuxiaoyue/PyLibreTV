@@ -1,0 +1,3 @@
+[submodule "templates/LibreTV"]
+	path = templates/LibreTV
+	url = https://github.com/LibreSpark/LibreTV.git
