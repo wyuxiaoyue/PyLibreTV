@@ -8,9 +8,11 @@ def getint(key, default):
         return default
 
 
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 CACHE_TTL = getint("CACHE_TTL", 60 * 5)  # 缓存时间5分钟
+
+HOST = os.getenv("HOST")
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
@@ -21,7 +23,7 @@ HEADERS = {
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
 }
 
-PASSWORD = os.getenv("PASSWORD", "")
+PASSWORD = os.getenv("PASSWORD")
 
 PORT = getint("PORT", 8080)
 

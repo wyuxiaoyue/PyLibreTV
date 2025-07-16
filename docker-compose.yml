@@ -1,0 +1,8 @@
+services:
+  pylibretv:
+    image: yuxiaoyue/pylibretv:latest
+    container_name: pylibretv
+    environment:
+      - PORT=8899
+    network_mode: host
+    restart: unless-stopped

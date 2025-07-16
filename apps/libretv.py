@@ -5,7 +5,7 @@ import aiohttp_jinja2
 from aiohttp import ClientSession, hdrs, web
 from yarl import URL
 
-from settings import ADMIN_PASSWORD, PASSWORD
+from settings import ADMIN_PASSWORD, HOST, PASSWORD
 from sites import SITES_KEY, Site
 
 SESSION_KEY = web.AppKey("SESSION_KEY", ClientSession)
@@ -41,7 +41,7 @@ async def hook_app_handler(request: web.Request):
 
 async def hook_config_handler(request: web.Request):
     host, port, *_ = request.transport.get_extra_info("sockname")
-    url = URL.build(scheme="http", host=host, port=port, path="/site/libretv")
+    url = URL.build(scheme="http", host=HOST or host, port=port, path="/site/libretv")
     sites = request.app[SITES_KEY]
     context = {"sites": {n: convert_site(url, n, site) for n, site in sites.items()}}
     return await aiohttp_jinja2.render_template_async("config.js", request, context)

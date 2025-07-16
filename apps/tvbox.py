@@ -4,6 +4,7 @@ import json
 from aiohttp import web
 from yarl import URL
 
+from settings import HOST
 from sites import SITES_KEY, Site
 
 dumps = functools.partial(json.dumps, ensure_ascii=False)
@@ -15,7 +16,7 @@ def convert_site(url: URL, name: str, site: Site):
 
 async def tvbox_handler(request: web.Request):
     host, port, *_ = request.transport.get_extra_info("sockname")
-    url = URL.build(scheme="http", host=host, port=port, path="/site/tvbox")
+    url = URL.build(scheme="http", host=HOST or host, port=port, path="/site/tvbox")
     sites = request.app[SITES_KEY]
     data = {"sites": [convert_site(url, name, site) for name, site in sites.items()]}
     return web.json_response(data, dumps=dumps)
