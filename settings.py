@@ -1,5 +1,13 @@
 import os
 
+
+def getint(key, default):
+    try:
+        return int(os.getenv(key, default))
+    except (ValueError, TypeError):
+        return default
+
+
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "")
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
@@ -13,7 +21,7 @@ HEADERS = {
 
 PASSWORD = os.getenv("PASSWORD", "")
 
-PORT = os.getenv("PORT", 8080)
+PORT = getint("PORT", 8080)
 
-REQUEST_TIMEOUT = os.getenv("REQUEST_TIMEOUT", 5)
-RETRY_TIMES = os.getenv("RETRY_TIMES", 2)
+REQUEST_TIMEOUT = getint("REQUEST_TIMEOUT", 5)
+RETRY_TIMES = getint("RETRY_TIMES", 2)  # 初始请求 + 1次重试 = 总共2次
