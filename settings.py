@@ -10,6 +10,8 @@ def getint(key, default):
 
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "")
 
+CACHE_TTL = getint("CACHE_TTL", 60 * 5)  # 缓存时间5分钟
+
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
 HEADERS = {

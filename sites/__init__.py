@@ -3,8 +3,6 @@ import importlib
 import logging
 import pathlib
 
-from aiocache import cached
-from aiocache.serializers import PickleSerializer
 from aiohttp import ClientError, ClientRequest, ClientSession, ClientTimeout, web
 
 from settings import HEADERS, REQUEST_TIMEOUT, RETRY_TIMES
@@ -83,7 +81,6 @@ async def sites_context(app):
         await site.close()
 
 
-@cached(60, key_builder=lambda _, x: x.path_qs, serializer=PickleSerializer())
 async def site_handler(request: web.Request):
     site = request.app[SITES_KEY][request.match_info["name"]]
     return web.json_response(body=await site.start_request(request))

@@ -1,6 +1,8 @@
+from aiocache import cached
 from aiohttp import web
 from yarl import URL
 
+from settings import CACHE_TTL
 from sites import Site
 
 
@@ -24,7 +26,10 @@ class CMSSite(Site):
         elif "ac" not in kwargs:
             kwargs["ac"] = "list"
 
-        url = URL(self.base_url).extend_query(**kwargs)
+        return await self.get(URL(self.base_url).extend_query(**kwargs))
+
+    @cached(CACHE_TTL)
+    async def get(self, url):
         async with self.session.get(url) as resp:
             return await resp.read()
 
