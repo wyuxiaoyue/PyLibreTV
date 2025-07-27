@@ -46,6 +46,14 @@ class LZSite(CMSSite):
 
     name = "量子资源"
     base_url = "https://cj.lziapi.com/api.php/provide/vod/"
+    rule = {
+        "hosts": ["vip.lz*", "hd.lz*", ".cdnlz", ".cdnlz*"],
+        "regex": [
+            "#EXTINF.*?\\s+[a-z0-9]{18,}\\.ts",
+            "[a-z0-9]{18,}\\.ts\\s+",
+            "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF.*?\\s+[a-z0-9]{18,}\\.ts[\\s\\S]*?#EXT-X-DISCONTINUITY",
+        ],
+    }
 
 
 class DYTTSite(CMSSite):
@@ -67,6 +75,10 @@ class BFSite(CMSSite):
 
     name = "暴风资源"
     base_url = "http://by.bfzyapi.com/api.php/provide/vod/"
+    rule = {
+        "hosts": ["bfzy", "bfbfvip", "bfengbf"],
+        "regex": ["#EXTINF.*?\\s+.*?adjump.*?\\.ts\\s+"],
+    }
 
 
 class TYYSSite(CMSSite):
@@ -88,6 +100,21 @@ class FFSite(CMSSite):
 
     name = "非凡资源"
     base_url = "http://api.ffzyapi.com/api.php/provide/vod/"
+    rule = {
+        "hosts": [
+            "vip.ffzy",
+            "hd.ffzy",
+            ".ffzy*",
+            "super.ffzy",
+            "super.ffzy*",
+            "svipsvip.ffzy",
+            "*.ffzy*",
+        ],
+        "regex": [
+            "#EXT-X-DISCONTINUITY(?:\n.*?){8}\n#EXT-X-DISCONTINUITY",
+            "#EXT-X-DISCONTINUITY(?:\n(?!#EXT-X-DISCONTINUITY).*){10}\n#EXT-X-DISCONTINUITY",
+        ],
+    }
 
 
 class HMESite(CMSSite):
@@ -95,6 +122,13 @@ class HMESite(CMSSite):
 
     name = "黑木耳资源"
     base_url = "https://json02.heimuer.xyz/api.php/provide/vod/"
+    rule = {
+        "hosts": [".com"],
+        "regex": [
+            "3.3666",
+            "18.018",
+        ],
+    }
 
 
 class T60Site(CMSSite):
@@ -109,6 +143,12 @@ class WLSite(CMSSite):
 
     name = "卧龙资源"
     base_url = "https://collect.wolongzy.cc/api.php/provide/vod/"
+    rule = {
+        "hosts": ["cdn.wl*"],
+        "regex": [
+            "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:.*?,[\\s\\S]*?#EXT-X-DISCONTINUITY"
+        ],
+    }
 
 
 class JSSite(CMSSite):
@@ -172,3 +212,9 @@ class IKSite(CMSSite):
 
     name = "iKun资源"
     base_url = "https://ikunzyapi.com/api.php/provide/vod/"
+    rule = {
+        "hosts": ["bfikuncdn"],
+        "regex": [
+            "#EXT-X-DISCONTINUITY\\r*\\n*#EXT-X-KEY:METHOD=NONE\\r*\\n*#EXTINF:.*?,[\\s\\S]*?#EXT-X-DISCONTINUITY"
+        ],
+    }
